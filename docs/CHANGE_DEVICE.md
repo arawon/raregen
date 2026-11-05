@@ -19,8 +19,8 @@ scutil --get ComputerName
 ```
 
 1. 장비명을 §5와 대조한다. 커밋 표기는 `vX.XX (장비명): 내용`이다.
-2. `package.json`이 있으면 `npm install` 후 `npm run brief`를 실행한다. (Phase 1에서 구성 예정)
-3. `scripts/check-device.sh`가 있으면 실행한다. (Phase 1에서 구성 예정)
+2. `npm install` 후 `npm run brief`를 실행한다.
+3. `npm run check-device`를 실행한다. 장비 의존 파일이 추적 중이면 `sh scripts/check-device.sh --fix`로 추적에서 제외한다.
 4. §4의 값을 이 장비에 구성할 수 있는지 검토한다.
 5. 전체 문서의 정합성을 확인한다.
 
@@ -28,8 +28,10 @@ scutil --get ComputerName
 
 - GitHub SSH 키 등록 (`git@github.com:arawon/raregen.git` 접근)
 - Git 사용자 설정
-- Node.js (버전은 Phase 1에서 확정)
+- Node.js 24
 - GitHub CLI는 필요할 때만 로그인하고 작업 후 정리한다.
+- 로컬 확인: `npm run dev`, 빌드 확인: `npm run build && npm run preview`
+- 배포는 `dev` 브랜치 push로 자동 진행되므로 장비별 배포 설정이 없다.
 
 ## 4. git에 보관되지 않는 값
 

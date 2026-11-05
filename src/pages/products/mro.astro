@@ -1,0 +1,65 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cta from '../../components/Cta.astro';
+import ProductTabs from '../../components/ProductTabs.astro';
+---
+
+<Base title="기업 소모성 자재" description="공장용품과 사무용품 등 기업 소모성 자재 조달을 안내합니다." active="product">
+  <section class="container page-head page-head--tabs">
+    <div class="page-head__title">
+      <p class="eyebrow rise-1">제품정보</p>
+      <h1 class="display"><span class="line"><span>공장용품부터 사무용품까지,</span></span><span class="line"><span>함께 조달합니다</span></span></h1>
+    </div>
+    <p class="page-head__side lede rise-2">생산 부자재와 유지·보수용 자재, 사무용 품목까지 필요한 품목을 문의해 주세요.</p>
+  </section>
+
+  <ProductTabs current="mro" />
+
+  <section class="container grid-2 mro-cards">
+    <div class="mro-card mro-card--blue" data-aos="fade-up">
+      <div class="chips"><span class="chip">부자재</span><span class="chip">유지용 자재</span><span class="chip">보수용 자재</span></div>
+      <div><p class="mro-card__code">M.R</p><h2>공장용품</h2></div>
+    </div>
+    <div class="mro-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="chips"><span class="chip">사무가구</span><span class="chip">사무기계·컴퓨터 장비</span><span class="chip">S/W</span></div>
+      <div><p class="mro-card__code">O</p><h2>O/A 기자재, 사무용품</h2></div>
+    </div>
+  </section>
+
+  <section class="container section--end" style="padding-top:72px">
+    <h2 class="label" data-aos="fade-up" style="margin-bottom:24px">품목 상세</h2>
+    <div class="table-wrap" data-aos="fade-up" data-aos-delay="100">
+      <table class="mro-table">
+        <caption>기업 소모성 자재 상품 유형, 내용, 상품 예</caption>
+        <thead>
+          <tr><th scope="col" colspan="2">상품 유형</th><th scope="col">내용</th><th scope="col">상품 예</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="3" class="first">공장용품 (M.R)</th>
+            <th scope="row">부자재</th>
+            <td>생산용 보조자재, 가공 없이 사용하거나 단순 가공 후 사용</td>
+            <td>Tape류, Tube류, 약품류, Band류, 포장 Box 등</td>
+          </tr>
+          <tr>
+            <th scope="row">유지용 자재</th>
+            <td>정기 교체 또는 보수 일정에 따른 구매 자재</td>
+            <td>기계부품, 페인트, 벨브, 전기스위치, 청소용품, 윤활유 등</td>
+          </tr>
+          <tr>
+            <th scope="row">보수용 자재</th>
+            <td>즉시 조달 자재</td>
+            <td>기계부품, 개스킷, 패스너, 스프링, 베어링, 봉연 등</td>
+          </tr>
+          <tr>
+            <th scope="row" colspan="2" class="first">O/A 기자재, 사무용품 (O)</th>
+            <td>정기적으로 구매되는 사무용 품목</td>
+            <td>사무가구, 사무기계·컴퓨터 장비, S/W, 기타 사무용품</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <Cta />
+</Base>

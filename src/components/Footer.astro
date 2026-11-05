@@ -1,0 +1,35 @@
+---
+import { company, productMenu } from '../data/site';
+import { url } from '../lib/url';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a href={url()} aria-label="레어젠 홈"><img src={url('images/site/ft_logo.png')} alt="RareGen biotechnology" width="190" height="66" loading="lazy" /></a>
+        <p>{company.name} | 대표자 {company.ceo}<br />{company.address}</p>
+      </div>
+      <nav class="footer-col" aria-label="제품정보">
+        <p class="footer-col__title">제품정보</p>
+        {productMenu.map((item) => <a href={url(item.href)}>{item.title}</a>)}
+      </nav>
+      <nav class="footer-col" aria-label="회사">
+        <p class="footer-col__title">회사</p>
+        <a href={url('about/')}>회사소개</a>
+        <a href={url('lab/')}>실험실 구축</a>
+        <a href={url('contact/')}>견적 문의</a>
+      </nav>
+      <div class="footer-col">
+        <p class="footer-col__title">연락처</p>
+        <a href={`tel:${company.tel}`}>Tel. {company.tel}</a>
+        <span>Fax. {company.fax}</span>
+        <a href={`mailto:${company.email}`}>{company.email}</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>사업자등록번호 {company.bizNo}</span>
+      <span>© RareGen. All rights reserved.</span>
+    </div>
+  </div>
+</footer>

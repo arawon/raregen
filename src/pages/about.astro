@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import { company } from '../data/site';
+import { url } from '../lib/url';
+
+const areas = [
+  { href: 'products/brands/', title: '시약 및 장비', desc: '15개 브랜드 취급' },
+  { href: 'products/magnetic-bead/', title: '마그네틱 비드', desc: 'PureSeek 자체 제품' },
+  { href: 'products/mro/', title: '기업 소모성 자재', desc: '공장용품과 사무용품' },
+  { href: 'lab/', title: '실험실 구축', desc: '설계·시공 통합 컨설팅' },
+];
+---
+
+<Base title="회사소개" description="정성과 신뢰를 바탕으로 동행하는 생명공학 파트너 레어젠을 소개합니다." active="about">
+  <section class="container page-head">
+    <div class="page-head__title">
+      <p class="eyebrow rise-1">회사소개</p>
+      <h1 class="display"><span class="line"><span>정성과 신뢰로 동행하는</span></span><span class="line"><span>생명공학 파트너</span></span></h1>
+    </div>
+    <p class="page-head__side lede rise-2">연구자를 우선에 두고, 필요한 제품과 서비스를 신속하고 정확하게 제공합니다.</p>
+  </section>
+
+  <section class="container">
+    <img class="wide-image" data-aos="clip" src={url('images/site/main_vis01.png')} alt="종이에 양각으로 찍힌 RareGen 로고" style="height:clamp(240px,32vw,440px);object-position:70% 50%" />
+  </section>
+
+  <section class="container section">
+    <div class="split">
+      <h2 class="split__label label" data-aos="fade-up">회사의 약속</h2>
+      <p class="split__body statement" data-aos="fade-up" data-aos-delay="100">정직과 신뢰를 바탕으로, 연구자가 최상의 성과를 얻을 수 있도록 최선을 다하는 파트너가 되겠습니다.</p>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="split">
+      <h2 class="split__label label" data-aos="fade-up">사업 영역</h2>
+      <div class="split__body">
+        {areas.map((area, i) => (
+          <div class="num-row-wrap" data-aos="fade-up" data-aos-delay={i * 50}>
+            <a class="num-row" href={url(area.href)}>
+              <span class="num-row__no">0{i + 1}</span>
+              <strong class="num-row__title">{area.title}</strong>
+              <span class="num-row__desc">{area.desc}</span>
+              <span aria-hidden="true" style="color:var(--blue)">→</span>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="container section section--end">
+    <div class="split">
+      <h2 class="split__label label" data-aos="fade-up">회사 정보</h2>
+      <dl class="split__body info-grid" data-aos="fade-up" data-aos-delay="100">
+        <div><dt>회사명</dt><dd>{company.name} ({company.nameEn})</dd></div>
+        <div><dt>대표자</dt><dd>{company.ceo}</dd></div>
+        <div><dt>대표번호</dt><dd>{company.tel}</dd></div>
+        <div><dt>팩스</dt><dd>{company.fax}</dd></div>
+        <div><dt>이메일</dt><dd>{company.email}</dd></div>
+        <div><dt>주소</dt><dd>{company.address}</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <Cta />
+</Base>

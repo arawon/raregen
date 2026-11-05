@@ -1,0 +1,17 @@
+{
+  "name": "raregen-site",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "brief": "node scripts/brief.mjs",
+    "check-device": "sh scripts/check-device.sh"
+  },
+  "dependencies": {
+    "aos": "^2.3.4",
+    "astro": "^7.4.5",
+    "swiper": "^14.4.0"
+  }
+}

@@ -1,0 +1,128 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cta from '../../components/Cta.astro';
+import ProductTabs from '../../components/ProductTabs.astro';
+import { products, sortOptions, priceText, productImage } from '../../data/products';
+import { url } from '../../lib/url';
+
+const initial = sortOptions[0];
+const ordered = initial.ids.map((id) => products.find((p) => p.id === id)!);
+---
+
+<Base title="제품 목록" description="레어젠 제품의 모델명과 사양을 확인하고 견적을 문의해 주세요." active="product">
+  <section class="container page-head page-head--tabs">
+    <div class="page-head__title">
+      <p class="eyebrow rise-1">제품정보</p>
+      <h1 class="display"><span class="line"><span>필요한 제품을 찾아</span></span><span class="line"><span>견적을 받아 보세요</span></span></h1>
+    </div>
+    <p class="page-head__side lede rise-2">제품의 모델명과 포장 단위를 확인하고 견적을 문의해 주세요. 목록에 없는 제품도 문의하실 수 있습니다.</p>
+  </section>
+
+  <ProductTabs current="list" />
+
+  <section class="container section--end">
+    <div class="list-bar">
+      <p aria-live="polite">총 {products.length}개 제품 · <span class="js-sort-label">{initial.label}</span></p>
+      <div class="sort-group" role="group" aria-label="제품 정렬">
+        {sortOptions.map((option, i) => (
+          <button type="button" class="sort-btn" data-label={option.label} data-order={JSON.stringify(option.ids)} aria-pressed={i === 0 ? 'true' : 'false'}>{option.label}</button>
+        ))}
+      </div>
+    </div>
+
+    <div class="prod-grid js-prod-grid">
+      {ordered.map((product, i) => (
+        <div class="prod-cell" data-id={product.id} data-aos="fade-up" data-aos-delay={(i % 3) * 100}>
+          <button type="button" class="prod" data-dialog={`spec-${i}`}>
+            <span class="prod__img"><img src={url(productImage(product.id))} alt={`${product.name} 제품 사진`} loading="lazy" /></span>
+            <span class="prod__body">
+              <span class="prod__meta">{product.group} · {product.specs[0].v}</span>
+              <span class="prod__name">{product.name}</span>
+              <span class="prod__foot"><span class="prod__price">{priceText(product.price)}</span><span class="prod__go">사양 보기 <span class="arrow" aria-hidden="true">→</span></span></span>
+            </span>
+          </button>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {ordered.map((product, i) => (
+    <dialog class="spec-dialog" id={`spec-${i}`} aria-label={`${product.name} 사양`}>
+      <div class="spec-dialog__inner">
+        <div class="spec-dialog__img"><img src={url(productImage(product.id))} alt={`${product.name} 제품 사진`} loading="lazy" /></div>
+        <div class="spec-dialog__body">
+          <div class="spec-dialog__top">
+            <span>{product.group}</span>
+            <form method="dialog"><button class="spec-dialog__close" aria-label="사양 닫기">×</button></form>
+          </div>
+          <h2>{product.name}</h2>
+          <p class="spec-dialog__price">{priceText(product.price)}</p>
+          <dl class="spec-list">
+            {product.specs.map((spec) => <div><dt>{spec.k}</dt><dd>{spec.v}</dd></div>)}
+          </dl>
+          <a class="btn btn--dark" href={url('contact/')}>이 제품 견적 문의 <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </dialog>
+  ))}
+
+  <Cta />
+</Base>
+
+<script>
+  import AOS from 'aos';
+
+  const grid = document.querySelector<HTMLElement>('.js-prod-grid');
+  const label = document.querySelector<HTMLElement>('.js-sort-label');
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.sort-btn');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* DOM 순서를 바꾼 뒤, 이전 위치에서 새 위치로 이동시킨다(FLIP). */
+  const sortTo = (ids: string[]) => {
+    if (!grid) return;
+    const cells = new Map<string, HTMLElement>();
+    grid.querySelectorAll<HTMLElement>('.prod-cell').forEach((cell) => {
+      cell.classList.add('aos-animate');
+      cells.set(cell.dataset.id ?? '', cell);
+    });
+    const before = new Map([...cells].map(([id, cell]) => [id, cell.getBoundingClientRect()]));
+    ids.forEach((id) => grid.append(cells.get(id)!));
+    AOS.refresh();
+    if (reduce) return;
+    ids.forEach((id, index) => {
+      const cell = cells.get(id)!;
+      const from = before.get(id)!;
+      const to = cell.getBoundingClientRect();
+      const dx = from.left - to.left;
+      const dy = from.top - to.top;
+      if (!dx && !dy) return;
+      cell.style.zIndex = '5';
+      const motion = cell.animate(
+        [
+          { transform: `translate(${dx}px, ${dy}px) scale(1)`, boxShadow: '0 0 0 rgba(11,15,20,0)' },
+          { transform: `translate(${dx * 0.45}px, ${dy * 0.45}px) scale(1.04)`, boxShadow: '0 24px 48px rgba(11,15,20,.2)', offset: 0.45 },
+          { transform: 'translate(0, 0) scale(1)', boxShadow: '0 0 0 rgba(11,15,20,0)' },
+        ],
+        { duration: 800, easing: 'cubic-bezier(.3,.7,.2,1)', delay: index * 35, fill: 'backwards' },
+      );
+      motion.onfinish = () => { cell.style.zIndex = ''; };
+    });
+  };
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.getAttribute('aria-pressed') === 'true') return;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+      if (label) label.textContent = button.dataset.label ?? '';
+      sortTo(JSON.parse(button.dataset.order ?? '[]'));
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('[data-dialog]').forEach((button) => {
+    const dialog = document.getElementById(button.dataset.dialog ?? '') as HTMLDialogElement | null;
+    button.addEventListener('click', () => dialog?.showModal());
+    dialog?.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  });
+</script>

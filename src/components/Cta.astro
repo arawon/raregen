@@ -1,0 +1,15 @@
+---
+import { company } from '../data/site';
+import { url } from '../lib/url';
+---
+
+<section class="container">
+  <div class="cta" data-aos="zoom-in-up">
+    <h2 data-aos="fade-up" data-aos-delay="150">필요한 제품을 알려 주세요</h2>
+    <p data-aos="fade-up" data-aos-delay="250">제품 견적과 실험실 구축 상담을 도와드립니다.</p>
+    <div data-aos="fade-up" data-aos-delay="350">
+      <a class="btn btn--dark" href={url('contact/')}>견적 문의 <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+    <p class="cta__tel">대표번호 {company.tel}</p>
+  </div>
+</section>

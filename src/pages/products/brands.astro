@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cta from '../../components/Cta.astro';
+import ProductTabs from '../../components/ProductTabs.astro';
+import { brands } from '../../data/site';
+import { url } from '../../lib/url';
+---
+
+<Base title="취급 브랜드" description="레어젠이 취급하는 시약과 장비 15개 브랜드를 소개합니다." active="product">
+  <section class="container page-head page-head--tabs">
+    <div class="page-head__title">
+      <p class="eyebrow rise-1">제품정보</p>
+      <h1 class="display"><span class="line"><span>시약과 장비,</span></span><span class="line"><span><span data-count="15">15</span>개 브랜드를 취급합니다</span></span></h1>
+    </div>
+    <p class="page-head__side lede rise-2">브랜드를 선택하면 제조사 공식 사이트로 이동합니다. 제품 견적은 레어젠으로 문의해 주세요.</p>
+  </section>
+
+  <ProductTabs current="brands" />
+
+  <section class="container section--end" style="padding-top:56px">
+    <div class="brand-grid">
+      {brands.map((brand, i) => (
+        <div class="brand-cell" data-aos="fade-up" data-aos-delay={(i % 5) * 50}>
+          <a class="brand-link" href={brand.href} target="_blank" rel="noopener">
+            <span class="brand-link__img"><img src={url(`images/brands/${brand.logo}`)} alt="" width="228" height="128" loading="lazy" /></span>
+            <span class="brand-link__name">{brand.name}
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#55606B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 10 10 4M5 4h5v5"></path></svg>
+            </span>
+          </a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <Cta />
+</Base>

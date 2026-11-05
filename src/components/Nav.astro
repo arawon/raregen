@@ -1,0 +1,69 @@
+---
+import { company, productMenu } from '../data/site';
+import { url } from '../lib/url';
+
+const { active } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="container nav-bar">
+    <a class="nav-logo" href={url()} aria-label="레어젠 홈">
+      <img src={url('images/site/ft_logo.png')} alt="RareGen biotechnology" width="190" height="66" />
+    </a>
+    <nav class="nav-menu" aria-label="주요 메뉴">
+      <span class="nav-pill" aria-hidden="true"></span>
+      <a class:list={['nav-link', { 'is-active': active === 'about' }]} href={url('about/')}>
+        <svg class="draw" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M16 9h3a1 1 0 0 1 1 1v11M2 21h20M8 7h4M8 11h4M8 15h4"></path></svg>
+        회사소개
+      </a>
+      <button type="button" class:list={['nav-link', 'js-product-toggle', { 'is-active': active === 'product' }]} aria-expanded="false" aria-controls="nav-products">
+        <svg class="draw" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6.5L4.6 18.2A1.8 1.8 0 0 0 6.1 21h11.8a1.8 1.8 0 0 0 1.5-2.8L14 9.5V3M7.5 15h9"></path></svg>
+        제품정보
+        <svg class="chevron" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.5 6 8l3.5-3.5"></path></svg>
+      </button>
+      <a class:list={['nav-link', { 'is-active': active === 'lab' }]} href={url('lab/')}>
+        <svg class="draw" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21h12M12 21a7 7 0 0 0 5-11.9M9 14h4M10 3h3v9h-3zM9 3h5"></path></svg>
+        실험실 구축
+      </a>
+    </nav>
+    <div class="nav-right">
+      <a class="nav-tel" href={`tel:${company.tel}`}>{company.tel}</a>
+      <a class="btn btn--dark btn--sm" href={url('contact/')}>견적 문의 <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-label="메뉴 열기">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+    </button>
+  </div>
+
+  <div class="nav-panel" id="nav-products">
+    <div class="container nav-panel__inner">
+      <div class="nav-panel__list">
+        <p class="nav-panel__heading">제품정보</p>
+        {productMenu.map((item, i) => (
+          <div class="nav-stagger" style={`--i:${i}`}>
+            <a class="nav-item" href={url(item.href)}>
+              <span class="nav-tile">
+                <svg class="draw" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d={item.icon}></path></svg>
+              </span>
+              <span class="nav-item__text">
+                <span class="nav-item__title">{item.title}</span>
+                <span class="nav-item__desc">{item.desc}</span>
+              </span>
+              <span class="nav-item__go" aria-hidden="true">→</span>
+            </a>
+          </div>
+        ))}
+      </div>
+      <div class="nav-feature-wrap nav-stagger" style="--i:3">
+        <a class="nav-feature" href={url('products/magnetic-bead/')}>
+          <span class="nav-feature__img"><img src={url('images/site/main_prd02.png')} alt="" width="150" height="190" loading="lazy" /></span>
+          <span class="nav-feature__text">
+            <span class="nav-feature__tag">자체 제품</span>
+            <span class="nav-feature__title">PureSeek 마그네틱 비드</span>
+            <span class="nav-feature__go">제품 보기 →</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>

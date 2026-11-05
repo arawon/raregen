@@ -1,0 +1,53 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cta from '../../components/Cta.astro';
+import ProductTabs from '../../components/ProductTabs.astro';
+import { url } from '../../lib/url';
+---
+
+<Base title="마그네틱 비드" description="국내 기술로 제조한 PureSeek 마그네틱 비드를 소개합니다." active="product">
+  <section class="container page-head page-head--tabs">
+    <div class="page-head__title">
+      <p class="eyebrow rise-1">제품정보</p>
+      <h1 class="display"><span class="line"><span>PureSeek</span></span><span class="line"><span>Magnetic Bead</span></span></h1>
+    </div>
+    <div class="page-head__side rise-2" style="display:flex;flex-direction:column;align-items:flex-start;gap:20px">
+      <p class="lede">핵산 분리와 반응 정제 등 다양한 실험에 적용할 수 있습니다. 간단하고 효율적인 프로토콜로 시간을 절약하고 예산을 개선해 보세요.</p>
+      <a class="btn btn--dark btn--md" href={url('contact/')}>제품 견적 문의 <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <ProductTabs current="bead" />
+
+  <section class="container bead-hero">
+    <div class="zoom bead-hero__img" data-aos="fade-up">
+      <img src={url('images/site/main_vis02.png')} alt="PureSeek 마그네틱 비드 두 병" />
+    </div>
+    <div class="bead-hero__facts">
+      <div class="fact fact--blue" data-aos="fade-up" data-aos-delay="100"><small>01</small><span><strong>순수</strong>국내 기술로 제조</span></div>
+      <div class="fact" data-aos="fade-up" data-aos-delay="200"><small>02</small><span><strong>합리적인 가격</strong>레어젠만의 가격 정책</span></div>
+      <div class="fact fact--navy" data-aos="fade-up" data-aos-delay="300"><small>03</small><span><strong>우수한 성능</strong>데이터 비교로 입증</span></div>
+    </div>
+  </section>
+
+  <section class="container section section--end">
+    <div class="split">
+      <div class="split__label split__label--sticky">
+        <p class="eyebrow" data-aos="fade-up" style="margin-bottom:12px">제품 사례</p>
+        <h2 data-aos="fade-up" data-aos-delay="100" style="font-size:clamp(28px,2.8vw,36px);font-weight:500;line-height:1.25;letter-spacing:-.03em">PureSeek Magnetic Bead for NGS</h2>
+      </div>
+      <div class="split__body fig-stack">
+        <figure class="fig-box" data-aos="fade-up">
+          <figcaption><span>Fig 1</span>비드별 수율 효율 및 크기 선택 비교</figcaption>
+          <img src={url('images/site/prod_img02.png')} alt="A bead와 PureSeek의 0.4배부터 1.8배까지 비율별 결과를 비교한 겔 이미지" loading="lazy" />
+        </figure>
+        <figure class="fig-box" data-aos="fade-up">
+          <figcaption><span>Fig 2</span>좌우 크기 선택 효율</figcaption>
+          <img src={url('images/site/prod_img03.png')} alt="Right side와 Left side의 비율별 크기 분포를 Shearing 대조군과 비교한 그래프" loading="lazy" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <Cta />
+</Base>

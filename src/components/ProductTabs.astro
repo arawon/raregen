@@ -1,0 +1,14 @@
+---
+import { productMenu } from '../data/site';
+import { url } from '../lib/url';
+
+const { current } = Astro.props;
+---
+
+<nav class="container rise-3" aria-label="제품정보 하위 메뉴">
+  <div class="tabs">
+    {productMenu.map((item) => (
+      <a class="tab" href={url(item.href)} aria-current={item.key === current ? 'page' : undefined}>{item.title}</a>
+    ))}
+  </div>
+</nav>

@@ -1,0 +1,162 @@
+---
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import { brands } from '../data/site';
+import { products, productImage } from '../data/products';
+import { url } from '../lib/url';
+
+const heroSlides = [
+  { src: 'images/site/main_vis02.png', alt: 'PureSeek 마그네틱 비드 제품 사진', position: '73% 50%', small: 'PureSeek 마그네틱 비드', strong: '국내 기술로 제조' },
+  { src: 'images/lab/lab_img05.png', alt: '파란 의자와 실험대가 설치된 실험실', position: '50% 50%', small: '실험실 구축', strong: '설계와 시공을 하나로' },
+  { src: 'images/site/main_prd01.png', alt: 'DNA 이중나선 이미지', position: '50% 50%', small: '시약 및 장비', strong: '15개 브랜드 취급' },
+];
+
+const labPhotos = [
+  { n: '05', alt: '파란 의자가 놓인 백색 상판 실험대' },
+  { n: '03', alt: '선반과 전원 설비를 갖춘 실험대' },
+  { n: '06', alt: '검은 상판 실험대와 의자가 놓인 실험실' },
+  { n: '02', alt: '양문형 출입구가 있는 클린룸 내부' },
+  { n: '04', alt: '벽면과 중앙에 실험대가 배치된 넓은 실험실' },
+  { n: '01', alt: '공조 설비와 출입문이 있는 클린룸 내부' },
+];
+---
+
+<Base title="생명공학 파트너" description="시약과 장비, PureSeek 마그네틱 비드, 기업 소모성 자재, 실험실 구축까지 함께하는 생명공학 파트너 레어젠입니다.">
+  <section class="container hero">
+    <div class="hero__copy">
+      <p class="eyebrow rise-1">Biotechnology partner</p>
+      <h1 class="display"><span class="line"><span>정성과 신뢰로 동행하는</span></span><span class="line"><span>생명공학 파트너, 레어젠</span></span></h1>
+      <p class="lede lede--lg rise-2">연구자를 우선에 두고, 최고의 제품과 서비스로 최상의 성과를 얻을 수 있도록 함께합니다.</p>
+      <div class="btn-row rise-3">
+        <a class="btn btn--dark" href={url('contact/')}>견적 문의 <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn--line" href={url('products/list/')}>제품 보기</a>
+      </div>
+    </div>
+    <div class="hero__media rise-2">
+      <div class="swiper hero-swiper" data-swiper="hero">
+        <div class="swiper-wrapper">
+          {heroSlides.map((slide) => (
+            <div class="swiper-slide">
+              <img src={url(slide.src)} alt={slide.alt} style={`object-position:${slide.position}`} />
+              <div class="hero-cap"><small>{slide.small}</small><strong>{slide.strong}</strong></div>
+            </div>
+          ))}
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="logos">
+    <p class="logos__title">레어젠이 취급하는 <span data-count="15">15</span>개 브랜드</p>
+    <div class="swiper logos-swiper" data-swiper="logos">
+      <div class="swiper-wrapper">
+        {brands.map((brand) => (
+          <div class="swiper-slide"><img src={url(`images/brands/${brand.logo}`)} alt={brand.name} width="228" height="128" /></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2 class="title" data-aos="fade-up" style="margin-bottom:16px">연구와 운영에 필요한 것을<br />한 곳에서</h2>
+    <p class="lede" data-aos="fade-up" data-aos-delay="100" style="margin-bottom:48px">시약과 장비, 자체 제품, 소모성 자재, 실험실 구축까지 함께 상담합니다.</p>
+    <div class="grid-2">
+      <div class="card-wrap" data-aos="fade-up">
+        <a class="card" href={url('products/brands/')}>
+          <span class="card__img"><img src={url('images/site/main_prd01.png')} alt="" loading="lazy" /></span>
+          <span class="card__body"><span class="card__title">시약 및 장비 <span class="arrow" aria-hidden="true">→</span></span><span class="card__desc">레어젠이 취급하는 15개 브랜드를 소개합니다.</span></span>
+        </a>
+      </div>
+      <div class="card-wrap" data-aos="fade-up" data-aos-delay="100">
+        <a class="card" href={url('products/magnetic-bead/')}>
+          <span class="card__img"><img src={url('images/site/main_prd02.png')} alt="" loading="lazy" /></span>
+          <span class="card__body"><span class="card__title">마그네틱 비드 <span class="arrow" aria-hidden="true">→</span></span><span class="card__desc">핵산 정제의 시간을 줄이고 예산을 개선할 수 있습니다.</span></span>
+        </a>
+      </div>
+      <div class="card-wrap" data-aos="fade-up">
+        <a class="card card--mro" href={url('products/mro/')}>
+          <span class="chips">
+            {['부자재', '유지용 자재', '보수용 자재', '사무용품', '사무가구', '사무기기'].map((chip, i) => (
+              <span class="chip" data-aos="zoom-in" data-aos-delay={100 + i * 50}>{chip}</span>
+            ))}
+          </span>
+          <span class="card__body"><span class="card__title">기업 소모성 자재 <span class="arrow" aria-hidden="true">→</span></span><span class="card__desc">공장용품부터 사무용품까지 필요한 품목을 함께 조달합니다.</span></span>
+        </a>
+      </div>
+      <div class="card-wrap" data-aos="fade-up" data-aos-delay="100">
+        <a class="card" href={url('lab/')}>
+          <span class="card__img"><img src={url('images/lab/lab_img06.png')} alt="" loading="lazy" /></span>
+          <span class="card__body"><span class="card__title">실험실 구축 <span class="arrow" aria-hidden="true">→</span></span><span class="card__desc">설계와 시공을 통합해 효율적인 실험실 구축을 컨설팅합니다.</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="bead-panel" data-aos="fade-up">
+      <div>
+        <p class="eyebrow" data-aos="fade-up" data-aos-delay="100">PureSeek Magnetic Bead</p>
+        <h2 class="bead-panel__title" data-aos="fade-up" data-aos-delay="150">핵산 정제의 문제를<br />개선하고 싶으십니까?</h2>
+        <div class="bead-row" data-aos="fade-right" data-aos-delay="200"><strong>순수</strong><span>국내 기술로 제조</span></div>
+        <div class="bead-row" data-aos="fade-right" data-aos-delay="300"><strong>합리적인 가격</strong><span>레어젠만의 가격 정책</span></div>
+        <div class="bead-row" data-aos="fade-right" data-aos-delay="400"><strong>우수한 성능</strong><span>데이터 비교로 입증</span></div>
+        <a class="btn btn--white btn--md" href={url('products/magnetic-bead/')}>제품 자세히 보기 <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+      <figure class="fig-card" data-aos="fade-left" data-aos-delay="250">
+        <img src={url('images/site/prod_img02.png')} alt="A bead와 PureSeek의 비율별 크기 선택 결과를 비교한 겔 이미지" loading="lazy" />
+        <figcaption>Fig 1. 비드별 수율 효율 및 크기 선택 비교</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="container section" data-gallery="products">
+    <div class="row-head">
+      <h2 class="title" data-aos="fade-up">주요 제품</h2>
+      <div class="row-controls" data-aos="fade-up">
+        <a class="btn btn--line btn--md" href={url('products/list/')}>전체 제품 보기 <span class="arrow" aria-hidden="true">→</span></a>
+        <button type="button" class="round-btn js-prev" aria-label="이전 제품">←</button>
+        <button type="button" class="round-btn js-next" aria-label="다음 제품">→</button>
+      </div>
+    </div>
+    <div data-aos="fade-up" data-aos-delay="100">
+      <div class="swiper gallery gallery--products" data-swiper="gallery">
+        <div class="swiper-wrapper">
+          {products.map((product) => (
+            <div class="swiper-slide">
+              <a class="mini-card" href={url('products/list/')}>
+                <span class="mini-card__img"><img src={url(productImage(product.id))} alt="" /></span>
+                <span class="mini-card__body"><span class="mini-card__model">{product.specs[0].v}</span><span class="mini-card__name">{product.name}</span></span>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section section--end" data-gallery="lab">
+    <div class="two-head">
+      <h2 class="title" data-aos="fade-up">설계부터 시공까지,<br />실험실을 하나로</h2>
+      <p class="lede" data-aos="fade-up" data-aos-delay="100">연구 목적과 분석 항목에 맞춰 장비를 선정하고, 실험대와 전기·가스·공조·급배수 설비까지 함께 제안합니다.</p>
+    </div>
+    <div data-aos="fade-up" data-aos-delay="150">
+      <div class="swiper gallery" data-swiper="gallery">
+        <div class="swiper-wrapper">
+          {labPhotos.map((photo) => (
+            <div class="swiper-slide"><div class="zoom"><img src={url(`images/lab/lab_img${photo.n}.png`)} alt={photo.alt} width="600" height="340" /></div></div>
+          ))}
+        </div>
+      </div>
+    </div>
+    <div class="row-foot" data-aos="fade-up">
+      <a class="btn btn--line btn--md" href={url('lab/')}>포트폴리오 보기 <span class="arrow" aria-hidden="true">→</span></a>
+      <div class="row-controls">
+        <button type="button" class="round-btn js-prev" aria-label="이전 사진">←</button>
+        <button type="button" class="round-btn js-next" aria-label="다음 사진">→</button>
+      </div>
+    </div>
+  </section>
+
+  <Cta />
+</Base>

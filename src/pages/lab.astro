@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import { url } from '../lib/url';
+
+const scopes = [
+  { title: '구축 컨설팅', desc: '설계와 시공을 통합해 진행', delay: 0 },
+  { title: '통합 솔루션', desc: '전기, 가스, 공조, 급배수 설비 포함', delay: 100 },
+  { title: '실험기자재 공급', desc: '연구 목적과 분석 항목에 맞춘 장비 선정', delay: 150 },
+  { title: '실험기기·실험대 판매', desc: '공간에 맞는 실험기기와 실험대 제공', delay: 250 },
+];
+---
+
+<Base title="실험실 구축" description="설계와 시공을 통합한 레어젠의 실험실 구축 컨설팅과 포트폴리오를 소개합니다." active="lab">
+  <section class="container page-head">
+    <div class="page-head__title">
+      <p class="eyebrow rise-1">실험실 구축</p>
+      <h1 class="display"><span class="line"><span>설계와 시공을</span></span><span class="line"><span>하나로</span></span></h1>
+    </div>
+    <p class="page-head__side lede rise-2">설계와 시공 업무를 통합해 효율적인 실험실 구축을 컨설팅합니다. 연구 목적과 분석 항목에 따라 장비를 선정하고, 실험대와 유틸리티 설비까지 함께 제안합니다.</p>
+  </section>
+
+  <section class="container">
+    <img class="wide-image" data-aos="clip" src={url('images/lab/lab_img05.png')} alt="파란 의자와 이중 선반 실험대가 설치된 실험실" style="height:clamp(280px,38vw,540px)" />
+  </section>
+
+  <section class="container section">
+    <div class="split">
+      <h2 class="split__label label" data-aos="fade-up">제공 범위</h2>
+      <div class="split__body scope-grid">
+        {scopes.map((scope, i) => (
+          <div class="scope" data-aos="fade-up" data-aos-delay={scope.delay}>
+            <small>0{i + 1}</small>
+            <div><h3>{scope.title}</h3><p>{scope.desc}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2 class="title" data-aos="fade-up" style="margin-bottom:40px">포트폴리오</h2>
+    <div class="split">
+      <div class="split__label split__label--sticky">
+        <h3 class="label" data-aos="fade-up" style="margin-bottom:6px">Clean Room</h3>
+        <p class="lede" data-aos="fade-up" style="font-size:15px">클린룸 시공 사례</p>
+      </div>
+      <div class="split__body photo-grid">
+        <div data-aos="fade-up"><div class="zoom"><img src={url('images/lab/lab_img01.png')} alt="공조 설비와 출입문이 있는 클린룸 내부" loading="lazy" /></div></div>
+        <div data-aos="fade-up" data-aos-delay="100"><div class="zoom"><img src={url('images/lab/lab_img02.png')} alt="양문형 출입구와 패스박스가 있는 클린룸 내부" loading="lazy" /></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section--end" style="padding-top:72px">
+    <div class="split">
+      <div class="split__label split__label--sticky">
+        <h3 class="label" data-aos="fade-up" style="margin-bottom:6px">Lab</h3>
+        <p class="lede" data-aos="fade-up" style="font-size:15px">Total Solution Provider</p>
+      </div>
+      <div class="split__body photo-flex">
+        <div class="is-wide" data-aos="fade-up"><div class="zoom"><img src={url('images/lab/lab_img04.png')} alt="넓은 공간에 벽면과 중앙으로 배치된 실험대" loading="lazy" /></div></div>
+        <div data-aos="fade-up"><div class="zoom"><img src={url('images/lab/lab_img03.png')} alt="선반과 전원 설비를 갖춘 실험대" loading="lazy" /></div></div>
+        <div data-aos="fade-up" data-aos-delay="100"><div class="zoom"><img src={url('images/lab/lab_img05.png')} alt="파란 의자가 놓인 백색 상판 실험대" loading="lazy" /></div></div>
+        <div data-aos="fade-up" data-aos-delay="200"><div class="zoom"><img src={url('images/lab/lab_img06.png')} alt="검은 상판 실험대와 파란 의자가 놓인 실험실" loading="lazy" /></div></div>
+      </div>
+    </div>
+  </section>
+
+  <Cta />
+</Base>

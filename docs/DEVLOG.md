@@ -4,6 +4,13 @@
 
 ## 2026-11-05
 
+### v0.03 (mini): Astro 사이트 구현과 임시 배포
+- 8개 페이지와 GNB, 푸터, CTA를 Astro로 구현했다.
+- Swiper, AOS, 제품 정렬 FLIP을 적용하고 문의 페이지는 `준비중`으로 두었다.
+- `dev` 브랜치 push 시 GitHub Pages로 배포하도록 구성했다.
+- `npm run brief`, `scripts/check-device.sh`를 추가했다.
+- 상세: `report/2026-11-05-site-build.md`
+
 ### v0.02 (mini): 저장소 공개 전환 반영
 - 현재 플랜으로 비공개 저장소의 Pages를 켤 수 없어(HTTP 422) 사용자 결정으로 저장소를 공개했다.
 - 공개 전 추적 파일과 이력에서 비밀값과 개인 연락처를 검사했고 발견되지 않았다.

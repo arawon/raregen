@@ -1,0 +1,40 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { url } from '../lib/url';
+
+interface Props {
+  title: string;
+  description: string;
+  active?: 'about' | 'product' | 'lab';
+}
+
+const { title, description, active } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} | 레어젠</title>
+    <meta name="description" content={description} />
+    <!-- 확인용 임시 주소이므로 검색 노출을 막는다. 공개 전환 시 제거한다. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet" />
+    <noscript><style>[data-aos]{opacity:1!important;transform:none!important;clip-path:none!important}</style></noscript>
+  </head>
+  <body>
+    <Nav active={active} />
+    <main><slot /></main>
+    <Footer />
+    <script>
+      import '../scripts/motion';
+      import '../scripts/nav';
+    </script>
+  </body>
+</html>

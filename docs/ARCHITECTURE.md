@@ -1,19 +1,20 @@
 # ARCHITECTURE.md
 
-최종 갱신: 2026-11-05 (v0.01). 아직 코드가 없으며, 아래는 구현 기준이다.
+최종 갱신: 2026-11-05 (v0.03)
 
 ## 1. 기술 스택
 
 | 영역 | 선택 | 상태 |
 |---|---|---|
-| 사이트 생성 | Astro (정적 빌드) | 채택, 구현 전 |
-| 언어 | TypeScript, HTML, CSS | 채택, 구현 전 |
-| 슬라이드 | Swiper 11 | 채택, 목업 검증용 사용 |
-| 스크롤 등장 효과 | AOS 2.3 | 채택, 목업은 CSS만 사용 |
-| 정렬 이동 효과 | Web Animations API 기반 FLIP (자체 구현) | 채택 |
-| 글꼴 | Instrument Sans, Noto Sans KR (Google Fonts) | 목업 기준 |
+| 사이트 생성 | Astro 7 (정적 빌드, MIT) | 사용 중 |
+| 언어 | TypeScript, HTML, CSS | 사용 중 |
+| 런타임 | Node.js 24 (개발·빌드 시에만) | 사용 중 |
+| 슬라이드 | Swiper 14 (MIT) | 사용 중 |
+| 스크롤 등장 효과 | AOS 2.3 (MIT) | 사용 중 |
+| 정렬 이동 효과 | Web Animations API 기반 FLIP (자체 구현) | 사용 중 |
+| 글꼴 | Instrument Sans, Noto Sans KR (Google Fonts) | 사용 중 |
 | 임시 호스팅 | GitHub Pages | 사용자·대표 확인용, 공개 저장소 (§5) |
-| 임시 배포 | GitHub Actions | 구현 전 |
+| 임시 배포 | GitHub Actions, `dev` 브랜치 push 시 | 사용 중 |
 | 최종 호스팅·배포 | 미정 | 도메인 연결 시 결정 |
 | 도메인·DNS | 호스트센터(`domainclub.kr`) | 기존 유지, 권한 확보 필요 |
 | 문의 처리 | 없음 (`준비중`) | 추후 결정 |
@@ -34,17 +35,18 @@ GitHub Pages (임시) ── 정적 HTML/CSS/JS/이미지
 
 도메인 연결 시 최종 호스팅을 결정한다. 정적 빌드 결과물이므로 호스팅을 바꿔도 사이트 코드는 거의 바뀌지 않는다.
 
-계획 중인 디렉터리:
+디렉터리:
 
 ```text
 src/
   layouts/      공통 레이아웃
   components/   Nav, Footer, Cta, 페이지 공통 블록
   pages/        index, about, products/*, lab, contact
-  data/         제품, 브랜드 데이터
+  data/         제품, 브랜드, 회사 데이터
+  scripts/      모션, GNB
   styles/       디자인 토큰, 모션
-public/         이미지
-scripts/        brief, check-device.sh
+public/         이미지, robots.txt
+scripts/        brief.mjs, check-device.sh
 ```
 
 | 페이지 | 경로 |
@@ -102,7 +104,7 @@ scripts/        brief, check-device.sh
 
 `prefers-reduced-motion: reduce`에서는 움직임을 끄고 콘텐츠를 바로 보여 준다.
 
-제품 정렬 구현 시 CSS `order`만 바꾸면 키보드 이동 순서가 화면과 달라진다. 실제 구현에서는 **DOM 순서를 바꾼 뒤** FLIP을 적용한다.
+제품 정렬은 키보드 이동 순서가 화면과 같도록 **DOM 순서를 바꾼 뒤** FLIP을 적용한다.
 
 ## 4. 외부 시스템 현황 (2026-11-05 공개 조회)
 
@@ -186,4 +188,10 @@ DNS 전환 시 **웹 레코드만 바꾸고 MX와 메일 관련 레코드는 유
 - **상태:** 채택 (2026-11-05)
 - **배경:** 사용자가 Swiper와 AOS를 지목했고, 정렬 시 위치 이동이 보이기를 원했다. Decagon은 소스 기준으로 GSAP, Swiper, Lottie를 사용한다.
 - **결정:** 슬라이드는 Swiper, 스크롤 등장은 AOS, 정렬 이동은 FLIP, GNB는 CSS와 SVG로 구현한다. Lottie와 GSAP은 필요가 생길 때 검토한다.
-- **결과:** 라이브러리가 적다. 목업은 뷰어 호환을 위해 AOS CSS를 자체 스크립트로 구동했으므로, 실제 사이트에서 AOS 원본의 동작을 다시 확인한다.
+- **결과:** 라이브러리가 적다. 실제 사이트는 AOS 원본을 사용하며 Chrome에서 스크롤 등장과 정렬 이동을 확인했다. AOS는 업데이트가 뜸한 라이브러리이므로 문제가 생기면 교체를 검토한다.
+
+### ADR-006. 임시 사이트는 `dev` 브랜치에서 배포
+- **상태:** 채택 (2026-11-05)
+- **배경:** `main` 병합은 별도 지시가 필요하고, 보면서 수정하는 진행 방식에는 즉시 반영이 필요하다.
+- **결정:** `dev` push 시 Pages로 배포하고 `github-pages` 환경에서 `dev`를 허용한다.
+- **결과:** `dev`의 모든 커밋이 임시 주소에 바로 반영된다. 최종 배포 방식은 도메인 연결 시 다시 정한다.
